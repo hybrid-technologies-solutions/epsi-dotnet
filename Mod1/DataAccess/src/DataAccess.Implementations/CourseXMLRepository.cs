@@ -52,20 +52,22 @@ namespace DataAccess.Implementations
             {
                 concernedElement.Remove();
             }
-            WriteXMLToDisk();
         }
 
         public void Insert(Course entity)
         {
             document.Root.Add(GetNodeFromCourse(entity));
-            WriteXMLToDisk();
         }
 
         public void Update(Course entity)
         {
             Remove(entity);
             Insert(entity);
-            WriteXMLToDisk();
+        }
+
+        public void Save()
+        {
+            File.WriteAllText(fileName, document.ToString());
         }
 
         private XElement GetNodeFromCourse(Course entity)
@@ -80,9 +82,5 @@ namespace DataAccess.Implementations
             throw new NotImplementedException();
         }
 
-        private void WriteXMLToDisk()
-        {
-            File.WriteAllText(fileName, document.ToString());
-        }
     }
 }

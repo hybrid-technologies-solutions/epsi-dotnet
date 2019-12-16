@@ -10,6 +10,7 @@ namespace DataAccess.Common.Abstractions
         void Insert(Course course);
         void Update(Course course);
         void Remove(Course course);
+        void Save();
         IEnumerable<Course> GetAll();
         Course FindById(int id);
     }
