@@ -7,18 +7,18 @@ using DataAccess.Common.Models;
 
 namespace DataAccess.Tests
 {
-    public class CourseXMLRepositoryTests
+    public class CourseJsonRepositoryTests
     {
         [Fact]
         public void Ctor_Should_Throws_If_File_Not_Exists()
         {
-            Assert.Throws<ArgumentException>(() => new CourseXMLRepository("unknow.xml"));
+            Assert.Throws<ArgumentException>(() => new CourseJsonRepository("unknow.json"));
         }
 
         [Fact]
         public void GetAll_Should_Retrieve_All_Data()
         {
-            var repo = new CourseXMLRepository("./Data/courses.xml");
+            var repo = new CourseJsonRepository("./Data/courses.json");
 
             var allCourses = repo.GetAll();
 
@@ -28,7 +28,7 @@ namespace DataAccess.Tests
         [Fact]
         public void FindByIdAsync_Should_Retrieve_Correct_Item()
         {
-            var repo = new CourseXMLRepository("./Data/courses.xml");
+            var repo = new CourseJsonRepository("./Data/courses.json");
 
             var wpfCourse = repo.FindById(2);
 
@@ -37,9 +37,9 @@ namespace DataAccess.Tests
         }
 
         [Fact]
-        public void Remove_Should_Remove_Element_From_XML_Document()
+        public void Remove_Should_Remove_Element_From_JSON_Document()
         {
-            var repo = new CourseXMLRepository("./Data/courses.xml");
+            var repo = new CourseJsonRepository("./Data/courses.json");
 
             var wpfElement = new Course
             {
@@ -57,7 +57,7 @@ namespace DataAccess.Tests
         [Fact]
         public void Insert_Should_Add_Element_ToDocument()
         {
-            var repo = new CourseXMLRepository("./Data/courses.xml");
+            var repo = new CourseJsonRepository("./Data/courses.json");
 
             var xamarinCourse = new Course
             {
@@ -78,7 +78,7 @@ namespace DataAccess.Tests
         [Fact]
         public void Update_Should_Update_Document()
         {
-            var repo = new CourseXMLRepository("./Data/courses.xml");
+            var repo = new CourseJsonRepository("./Data/courses.json");
 
             var wpfElement = new Course
             {

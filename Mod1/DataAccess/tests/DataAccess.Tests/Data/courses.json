@@ -1,0 +1,20 @@
+[
+  {
+    "CourseName": "Apprendre C#",
+    "Id": 1,
+    "DurationInDays": 5,
+    "Difficulty": 2
+  },
+  {
+    "CourseName": "Apprendre WPF avec Prism",
+    "Id": 2,
+    "DurationInDays": 5,
+    "Difficulty": 3
+  },
+  {
+    "CourseName": "Apprendre ASP.NET",
+    "Id": 3,
+    "DurationInDays": 3,
+    "Difficulty": 2
+  }
+]

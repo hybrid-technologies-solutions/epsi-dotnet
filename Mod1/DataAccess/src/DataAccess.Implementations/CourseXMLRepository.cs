@@ -14,7 +14,6 @@ namespace DataAccess.Implementations
     public class CourseXMLRepository : ICourseRepository
     {
         private readonly XDocument document;
-        private readonly string rootNodeName = "courses";
         private readonly string nodesName = "course";
         private readonly string fileName;
 
@@ -23,7 +22,7 @@ namespace DataAccess.Implementations
         {
             if (!File.Exists(fileName))
             {
-                throw new ArgumentException($"XMLBaseRepository.ctor() : {fileName} don't exists.");
+                throw new ArgumentException($"CourseXMLRepository.ctor() : {fileName} don't exists.");
             }
             document = XDocument.Parse(File.ReadAllText(fileName));
             this.fileName = fileName;
