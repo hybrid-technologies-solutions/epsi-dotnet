@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<courses>
+  <course name="Apprendre C#" id="1">
+    <details duration="5" difficulty="2"/>
+  </course>
+  <course name="Apprendre WPF avec Prism" id="2">
+    <details duration="5" difficulty="3"/>
+  </course>
+  <course name="Apprendre ASP.NET" id="3">
+    <details duration="3" difficulty="2"/>
+  </course>
+</courses>

@@ -348,3 +348,4 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+/Mod1/DataAccess/DataAccess.v3.ncrunchsolution
