@@ -8,7 +8,6 @@ namespace XMLDemos
 {
     public class XML
     {
-
         private class Student
         {
             public string Name { get; set; }
