@@ -9,13 +9,14 @@ using System.Linq;
 using DataAccess.Common.Abstractions;
 using DataAccess.Common.Models;
 
-namespace DataAccess.XML
+namespace DataAccess.Implementations
 {
     public class CourseXMLRepository : ICourseRepository
     {
         private readonly XDocument document;
         private readonly string rootNodeName = "courses";
         private readonly string nodesName = "course";
+        private readonly string fileName;
 
         public CourseXMLRepository(
             string fileName)
@@ -25,6 +26,7 @@ namespace DataAccess.XML
                 throw new ArgumentException($"XMLBaseRepository.ctor() : {fileName} don't exists.");
             }
             document = XDocument.Parse(File.ReadAllText(fileName));
+            this.fileName = fileName;
         }
 
         public Course FindById(int id)
@@ -43,20 +45,45 @@ namespace DataAccess.XML
 
         public void Remove(Course entity)
         {
-            throw new NotImplementedException();
+            var concernedElement = document
+                .Root
+                .Elements(nodesName)
+                .FirstOrDefault(e => int.Parse(e.Attribute("id").Value) == entity.Id);
+            if (concernedElement != null)
+            {
+                concernedElement.Remove();
+            }
+            WriteXMLToDisk();
         }
 
         public void Insert(Course entity)
         {
-            throw new NotImplementedException();
+            document.Root.Add(GetNodeFromCourse(entity));
+            WriteXMLToDisk();
         }
 
         public void Update(Course entity)
         {
+            Remove(entity);
+            Insert(entity);
+            WriteXMLToDisk();
+        }
+
+        private XElement GetNodeFromCourse(Course entity)
+        {
+            //TODO
             throw new NotImplementedException();
         }
 
         private Course ParseNode(XElement element)
-            => throw new NotImplementedException();
+        {
+            //TODO
+            throw new NotImplementedException();
+        }
+
+        private void WriteXMLToDisk()
+        {
+            File.WriteAllText(fileName, document.ToString());
+        }
     }
 }

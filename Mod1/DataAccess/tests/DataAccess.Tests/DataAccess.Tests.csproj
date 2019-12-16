@@ -21,7 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\DataAccess.XML\DataAccess.XML.csproj" />
+    <ProjectReference Include="..\..\src\DataAccess.Abstractions\DataAccess.Common.csproj" />
+    <ProjectReference Include="..\..\src\DataAccess.Implementations\DataAccess.Implementations.csproj" />
   </ItemGroup>
 
   <ItemGroup>

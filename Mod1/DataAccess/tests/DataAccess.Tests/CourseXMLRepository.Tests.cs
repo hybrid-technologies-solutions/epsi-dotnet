@@ -1,7 +1,9 @@
 using System;
-using System.Threading.Tasks;
 using Xunit;
 using FluentAssertions;
+using System.Linq;
+using DataAccess.Implementations;
+using DataAccess.Common.Models;
 
 namespace DataAccess.XML.Tests
 {
@@ -14,7 +16,7 @@ namespace DataAccess.XML.Tests
         }
 
         [Fact]
-        public async Task GetAll_Should_Retrieve_All_Data()
+        public void GetAll_Should_Retrieve_All_Data()
         {
             var repo = new CourseXMLRepository("./Data/courses.xml");
 
@@ -24,7 +26,7 @@ namespace DataAccess.XML.Tests
         }
 
         [Fact]
-        public async Task FindByIdAsync_Should_Retrieve_Correct_Item()
+        public void FindByIdAsync_Should_Retrieve_Correct_Item()
         {
             var repo = new CourseXMLRepository("./Data/courses.xml");
 
@@ -34,5 +36,63 @@ namespace DataAccess.XML.Tests
             wpfCourse.Id.Should().Be(2);
         }
 
+        [Fact]
+        public void Remove_Should_Remove_Element_From_XML_Document()
+        {
+            var repo = new CourseXMLRepository("./Data/courses.xml");
+
+            var wpfElement = new Course
+            {
+                Id = 2,
+                CourseName = "Apprendre WPF avec Prism"
+            };
+
+            repo.Remove(wpfElement);
+
+            var elements = repo.GetAll();
+            elements.Should().HaveCount(2);
+            elements.Any(e => e.Id == 2).Should().BeFalse();
+        }
+
+        [Fact]
+        public void Insert_Should_Add_Element_ToDocument()
+        {
+            var repo = new CourseXMLRepository("./Data/courses.xml");
+
+            var xamarinCourse = new Course
+            {
+                Id = 4,
+                CourseName = "Apprendre Xamarin",
+                DurationInDays = 10,
+                Difficulty = Difficulty.Medium
+            };
+
+            repo.Insert(xamarinCourse);
+
+            var elements = repo.GetAll();
+            elements.Should().HaveCount(4);
+            elements.Any(e => e.Id == 4).Should().BeTrue();
+            elements.Any(e => e.CourseName == "Apprendre Xamarin").Should().BeTrue();
+        }
+
+        [Fact]
+        public void Update_Should_Update_Document()
+        {
+            var repo = new CourseXMLRepository("./Data/courses.xml");
+
+            var wpfElement = new Course
+            {
+                Id = 2,
+                CourseName = "Apprendre WPF"
+            };
+
+            repo.Update(wpfElement);
+
+            var elements = repo.GetAll();
+            elements.Should().HaveCount(3);
+            elements.Any(e => e.Id == 2).Should().BeTrue();
+            elements.Any(e => e.CourseName == "Apprendre WPF").Should().BeTrue();
+            elements.Any(e => e.CourseName == "Apprendre WPF avec Prism").Should().BeFalse();
+        }
     }
 }

@@ -79,5 +79,30 @@ namespace XMLDemos
             students.Should().HaveCount(2);
         }
 
+        [Fact]
+        public void WriteXML()
+        {
+            string expectedXML =@"<?xml version=""1.0"" encoding=""UTF-8""?><students><student name=""Jon"" lastname=""Snow"" /><student name=""Tywin"" lastname=""Lannister"" /></students>";
+
+            XDocument doc = new XDocument();
+
+            doc.Add(new XElement(
+                "students",
+                new XElement(
+                    "student",
+                    new XAttribute("name", "Jon"),
+                    new XAttribute("lastname", "Snow")),
+                 new XElement(
+                    "student",
+                    new XAttribute("name", "Tywin"),
+                    new XAttribute("lastname", "Lannister"))
+                 )
+                );
+
+            expectedXML
+                .Contains(doc.ToString(SaveOptions.DisableFormatting), StringComparison.OrdinalIgnoreCase)
+                .Should().BeTrue();
+        }
+
     }
 }
