@@ -41,11 +41,7 @@ namespace DataAccess.Tests
         {
             var repo = new CourseXMLRepository("./Data/courses.xml");
 
-            var wpfElement = new Course
-            {
-                Id = 2,
-                CourseName = "Apprendre WPF avec Prism"
-            };
+            var wpfElement = repo.FindById(2);
 
             repo.Remove(wpfElement);
 
