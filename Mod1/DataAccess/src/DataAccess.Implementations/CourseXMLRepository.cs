@@ -72,14 +72,23 @@ namespace DataAccess.Implementations
 
         private XElement GetNodeFromCourse(Course entity)
         {
-            //TODO
-            throw new NotImplementedException();
+            return new XElement(nodesName,
+                   new XAttribute("name", entity.CourseName),
+                   new XAttribute("id", entity.Id),
+                   new XElement("details",
+                       new XAttribute("difficulty", (int)entity.Difficulty),
+                       new XAttribute("duration", entity.DurationInDays)));
         }
 
         private Course ParseNode(XElement element)
         {
-            //TODO
-            throw new NotImplementedException();
+            return new Course
+            {
+                CourseName = element.Attribute("name").Value,
+                Difficulty = (Difficulty)Enum.Parse(typeof(Difficulty), element.Element("details").Attribute("difficulty").Value),
+                Id = int.Parse(element.Attribute("id").Value),
+                DurationInDays = int.Parse(element.Element("details").Attribute("duration").Value)
+            };
         }
 
     }

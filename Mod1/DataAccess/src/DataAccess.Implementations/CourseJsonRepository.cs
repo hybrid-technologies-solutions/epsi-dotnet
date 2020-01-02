@@ -21,8 +21,8 @@ namespace DataAccess.Implementations
             {
                 throw new ArgumentException($"CourseJsonRepository.ctor() : {fileName} don't exists.");
             }
-            this.fileName = fileName;
-            //TODO charger le fichier
+            this.fileName = fileName; 
+            courses = JsonConvert.DeserializeObject<List<Course>>(File.ReadAllText(fileName));
         }
 
         public Course FindById(int id)
@@ -51,9 +51,7 @@ namespace DataAccess.Implementations
 
         public void Save()
         {
-            File.WriteAllText(fileName,
-                //TODO 
-                null);
+            File.WriteAllText(fileName, JsonConvert.SerializeObject(courses));
         }
     }
 }

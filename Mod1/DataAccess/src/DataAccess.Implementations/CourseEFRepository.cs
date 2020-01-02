@@ -3,6 +3,7 @@ using DataAccess.Common.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace DataAccess.Implementations
@@ -30,32 +31,32 @@ namespace DataAccess.Implementations
 
         public Course FindById(int id)
         {
-            throw new NotImplementedException();
+            return context.Courses.Find(id);
         }
 
         public IEnumerable<Course> GetAll()
         {
-            throw new NotImplementedException();
+            return context.Courses.ToList();
         }
 
         public void Insert(Course course)
         {
-            throw new NotImplementedException();
+            context.Courses.Add(course);
         }
 
         public void Remove(Course course)
         {
-            throw new NotImplementedException();
+            context.Courses.Remove(course);
         }
 
         public void Save()
         {
-            throw new NotImplementedException();
+            context.SaveChanges();
         }
 
         public void Update(Course course)
         {
-            throw new NotImplementedException();
+            context.Courses.Update(course);
         }
     }
 }

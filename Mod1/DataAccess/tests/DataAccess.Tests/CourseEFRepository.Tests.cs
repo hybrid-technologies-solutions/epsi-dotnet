@@ -11,6 +11,42 @@ namespace DataAccess.Tests
 {
     public class CourseEFRepositoryTests
     {
+        public CourseEFRepositoryTests()
+        {
+            using (var ctx = new DemoDbContext())
+            {
+                ctx.Database.EnsureDeleted();
+                ctx.Database.EnsureCreated();
+
+                ctx.Courses.AddRange(
+                    new[] {
+                        new Course
+                        {
+                            Id = 1,
+                            CourseName = "Apprendre C#",
+                            DurationInDays = 5,
+                            Difficulty = Difficulty.Medium
+                        },
+                        new Course
+                        {
+                            Id = 2,
+                            CourseName = "Apprendre WPF avec Prism",
+                            DurationInDays = 5,
+                            Difficulty = Difficulty.Hard
+                        },
+                        new Course
+                        {
+                            Id = 3,
+                            CourseName = "Apprendre ASP.NET",
+                            DurationInDays = 3,
+                            Difficulty = Difficulty.Medium
+                        }
+                    });
+
+                ctx.SaveChanges();
+            }
+        }
+
         [Fact]
         public void Ctor_Should_Throws_If_Null_Is_Passed_As_Context()
         {
@@ -54,7 +90,11 @@ namespace DataAccess.Tests
                 var wpfElement = repo.FindById(2);
 
                 repo.Remove(wpfElement);
-
+                repo.Save();
+            }
+            using (var ctx = new DemoDbContext())
+            {
+                var repo = new CourseEFRepository(ctx);
                 var elements = repo.GetAll();
                 elements.Should().HaveCount(2);
                 elements.Any(e => e.Id == 2).Should().BeFalse();
@@ -75,9 +115,13 @@ namespace DataAccess.Tests
                     DurationInDays = 10,
                     Difficulty = Difficulty.Medium
                 };
-
                 repo.Insert(xamarinCourse);
+                repo.Save();
+            }
 
+            using (var ctx = new DemoDbContext())
+            {
+                var repo = new CourseEFRepository(ctx);
                 var elements = repo.GetAll();
                 elements.Should().HaveCount(4);
                 elements.Any(e => e.Id == 4).Should().BeTrue();
@@ -99,7 +143,11 @@ namespace DataAccess.Tests
                 };
 
                 repo.Update(wpfElement);
-
+                repo.Save();
+            }
+            using (var ctx = new DemoDbContext())
+            {
+                var repo = new CourseEFRepository(ctx);
                 var elements = repo.GetAll();
                 elements.Should().HaveCount(3);
                 elements.Any(e => e.Id == 2).Should().BeTrue();
