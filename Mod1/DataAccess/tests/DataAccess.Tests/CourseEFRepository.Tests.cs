@@ -54,7 +54,11 @@ namespace DataAccess.Tests
                 var wpfElement = repo.FindById(2);
 
                 repo.Remove(wpfElement);
-
+                repo.Save();
+            }
+            using (var ctx = new DemoDbContext())
+            {
+                var repo = new CourseEFRepository(ctx);
                 var elements = repo.GetAll();
                 elements.Should().HaveCount(2);
                 elements.Any(e => e.Id == 2).Should().BeFalse();
@@ -77,7 +81,11 @@ namespace DataAccess.Tests
                 };
 
                 repo.Insert(xamarinCourse);
-
+                repo.Save();
+            }
+            using (var ctx = new DemoDbContext())
+            {
+                var repo = new CourseEFRepository(ctx);
                 var elements = repo.GetAll();
                 elements.Should().HaveCount(4);
                 elements.Any(e => e.Id == 4).Should().BeTrue();
@@ -99,7 +107,11 @@ namespace DataAccess.Tests
                 };
 
                 repo.Update(wpfElement);
-
+                repo.Save();
+            }
+            using (var ctx = new DemoDbContext())
+            {
+                var repo = new CourseEFRepository(ctx);
                 var elements = repo.GetAll();
                 elements.Should().HaveCount(3);
                 elements.Any(e => e.Id == 2).Should().BeTrue();
