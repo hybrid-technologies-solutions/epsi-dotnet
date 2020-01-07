@@ -30,7 +30,7 @@ namespace JsonDemos
     }
 ]";
 
-            List<Student> students = JsonConvert.DeserializeObject<Student[]>(json).ToList();
+            List<Student> students = JsonConvert.DeserializeObject<List<Student>>(json);
             students.Should().HaveCount(2);
 
         }
