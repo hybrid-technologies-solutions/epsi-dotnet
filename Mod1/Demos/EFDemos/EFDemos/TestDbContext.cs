@@ -9,6 +9,14 @@ namespace EFDemos
     {
         public DbSet<Student> Students { get; set; }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            // définition de la base de données à utiliser ainsi que de la chaine de connexion
+            optionsBuilder.UseSqlite("Filename=test.db");
+
+            base.OnConfiguring(optionsBuilder);
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // création de la classe de configuration pour l'entité "Student"
@@ -54,14 +62,6 @@ namespace EFDemos
 
 
             base.OnModelCreating(modelBuilder);
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            // définition de la base de données à utiliser ainsi que de la chaine de connexion
-            optionsBuilder.UseSqlite("Filename=test.db");
-
-            base.OnConfiguring(optionsBuilder);
         }
 
     }
