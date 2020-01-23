@@ -39,7 +39,9 @@ namespace ASPNETMVCDemo
             // Je lui donne un StudentIdentityFormater
             services.AddScoped<IIdentityFormater, StudentIdentityFormater>();
 
-
+            // Je configure le DbContext EF
+            // grâce au paramètre de la méthode, je peux configurer ici la chaine de connexion
+            // pour rendre mon DbContext universel (et ne plus imposer une BDD en overridant le OnConfiguring)
             services.AddDbContext<DemoDbContext>(options => options.UseSqlite("Filename=asp.db"));
         }
 

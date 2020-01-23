@@ -35,7 +35,7 @@ namespace ASPNETMVCDemo.Controllers
             var identity = formater.FormatName(student);
             //En utilisant la méthode View(), ASP.NET va retourner la vue qui porte le nom de l'action (ici Index)
             // qui se trouve dans le dossier Views/Home, car le controller s'appelle HomeController
-            return View(identity);
+            return View(model: identity);
         }
 
         public IActionResult About()
